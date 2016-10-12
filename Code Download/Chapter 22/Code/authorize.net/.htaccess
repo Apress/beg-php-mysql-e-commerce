@@ -1,0 +1,69 @@
+<IfModule mod_rewrite.c>
+
+  # Enable mod_rewrite
+  RewriteEngine On
+
+  # Specify the folder in which the application resides.
+  # Use / if the application is in the root. 
+  RewriteBase /tshirtshop
+
+  # Redirect to correct domain to avoid canonicalization problems
+  # RewriteCond %{HTTP_HOST} !^www\.example\.com
+  # RewriteRule ^(.*)$ http://www.example.com/$1 [R=301,L]
+
+  # Redirect URLs ending in /index.php or /index.html to /
+  RewriteCond %{THE_REQUEST} ^GET\ .*/index\.(php|html?)\ HTTP
+  RewriteRule ^(.*)index\.(php|html?)$ $1 [R=301,L]
+
+  # Redirect category pages
+  RewriteRule ^.*-d([0-9]+)/.*-c([0-9]+)/page-([0-9]+)/?$ index.php?DepartmentId=$1&CategoryId=$2&Page=$3 [L]
+  RewriteRule ^.*-d([0-9]+)/.*-c([0-9]+)/?$ index.php?DepartmentId=$1&CategoryId=$2 [L]
+
+  # Redirect department pages
+  RewriteRule ^.*-d([0-9]+)/page-([0-9]+)/?$ index.php?DepartmentId=$1&Page=$2 [L]
+  RewriteRule ^.*-d([0-9]+)/?$ index.php?DepartmentId=$1 [L]
+
+  # Redirect search results
+  RewriteRule ^search-results/find-(.*)/all-words-(on|off)/page-([0-9]+)/?$ index.php?SearchResults&SearchString=$1&AllWords=$2&Page=$3 [L]
+  RewriteRule ^search-results/find-?(.*)/all-words-(on|off)/?$ index.php?SearchResults&SearchString=$1&AllWords=$2&Page=1 [L]
+
+  # Redirect subpages of the home page
+  RewriteRule ^page-([0-9]+)/?$ index.php?Page=$1 [L]
+
+  # Redirect product details pages
+  RewriteRule ^.*-p([0-9]+)/?$ index.php?ProductId=$1 [L]
+
+  # Rewrite cart details pages
+  RewriteRule ^cart-details/?$ index.php?CartAction [L]
+
+  # Rewrite register customer pages
+  RewriteRule ^register-customer/?$ index.php?RegisterCustomer [L]
+
+  # Rewrite address details pages
+  RewriteRule ^address-details/?$ index.php?AddressDetails [L]
+
+  # Rewrite credit card details pages
+  RewriteRule ^credit-card-details/?$ index.php?CreditCardDetails [L]
+
+  # Rewrite account details pages
+  RewriteRule ^account-details/?$ index.php?AccountDetails [L]
+
+  # Rewrite checkout pages
+  RewriteRule ^checkout/?$ index.php?Checkout [L]
+
+
+  # Rewrite order done pages
+  RewriteRule ^order-done/?$ index.php?OrderDone [L]
+
+  # Rewrite order error pages
+  RewriteRule ^order-error/?$ index.php?OrderError [L]
+
+  # Rewrite Amazon t-shirts department pages
+  RewriteRule ^amazon-t-shirts/?$ index.php?DepartmentId=Amazon [L]
+</IfModule>
+
+# Set the default 500 page for Apache errors
+ErrorDocument 500 /tshirtshop/500.php
+
+# Set the default 404 page
+ErrorDocument 404 /tshirtshop/404.php

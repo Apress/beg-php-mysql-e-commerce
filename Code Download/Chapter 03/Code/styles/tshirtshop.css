@@ -1,0 +1,35 @@
+@import "reset-min.css";
+@import "base-min.css";
+@import "fonts-min.css";
+@import "grids-min.css";
+
+body {
+  font-size: 85%;
+  font-family: "georgia";
+}
+
+.yui-t2, #bd, #yui-main {
+  z-index: -5;
+}
+
+.yui-b, .yui-g {
+  z-index: auto;
+}
+
+#header {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.error_box {
+  background-color: #FFFFCC;
+  border: 1px solid #DC143C;
+  color: #DC143C;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 5px;
+  position: relative;
+  text-align: left;
+  width: 90%;
+  z-index: 5;
+}
